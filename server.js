@@ -20,9 +20,8 @@
 //imports
 const express = require('express')
 const morgan = require('morgan')
-//om class Person te gebruiken in deze file
-const Person = require('./domain/Person')
 const bodyparser = require('body-parser')
+const routes = require('./routes/person-routes')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -30,7 +29,7 @@ const port = process.env.PORT || 3000
 app.use(morgan('dev'))
 app.use(bodyparser.json())
 
-let personlist = []
+
 
 //reageert op alle binnenkomende requests
 app.use('*', (req, res, next) => {
@@ -38,7 +37,7 @@ app.use('*', (req, res, next) => {
   next()
 })
 
-
+app.use('/api', routes)
 
 //wanneer de gevraagde endpoint niet gevonden is komen we hier.
 //functies get en post zijn niet aangeroepen
